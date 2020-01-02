@@ -1,1 +1,8 @@
 include ':app'
+
+// TODO: Remove local library include and import from jcenter instead.
+// Note: This requires relative path.
+include ':androidtest-library'
+project(':androidtest-library').projectDir = new File(settingsDir, '../android-library/androidtest-library')
+
+rootProject.name='calculator'

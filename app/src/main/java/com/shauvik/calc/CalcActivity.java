@@ -1,17 +1,15 @@
 package com.shauvik.calc;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.prefs.Preferences;
 
-
-public class CalcActivity extends ActionBarActivity {
+public class CalcActivity extends AppCompatActivity {
     String operand = "";
     int operator = 0;
     boolean doReset=false;
