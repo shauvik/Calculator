@@ -60,19 +60,29 @@ public class CalcEspressoTest {
         // TODO: Parse POM - Calculator into JSON
 
         // Page Object Model
-        String pom="{" +
-                "objects=[" +
-                    "{" +
-                    "class=\"com.shauvik.calc.model.Calculator\"," +
-                    "methods={" +
-                        "\"clickNumber(Integer)\":\"Calculator\"," +
-                        "\"clickOperator(String)\":\"Calculator\"," +
-                        "\"clickEquals()\":\"Calculator\"," +
-                        "\"checkResult(String)\":\"Calculator\"" +
-                        "}" +
-                    "}" +
-                "[" +
-            "}";
+        String pom = "{\n" +
+                "  \"objects\": [{\n" +
+                "    \"class\": \"com.shauvik.calc.model.Calculator\",\n" +
+                "    \"methods\": {\n" +
+                "      \"clickNumber\": {\n" +
+                "        \"params\": [\"int\"],\n" +
+                "        \"returns\": \"Calculator\"\n" +
+                "      },\n" +
+                "      \"clickOperator\": {\n" +
+                "        \"params\": [\"java.lang.String\"],\n" +
+                "        \"returns\": \"Calculator\"\n" +
+                "      },\n" +
+                "      \"clickEquals\": {\n" +
+                "        \"params\": [],\n" +
+                "        \"returns\": \"Calculator\"\n" +
+                "      },\n" +
+                "      \"checkResult\": {\n" +
+                "        \"params\": [\"java.lang.String\"],\n" +
+                "        \"returns\": \"Calculator\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }]\n" +
+                "}";
 
         // Ordered rule list to match screens to Page Objects
         // * = matches anything
