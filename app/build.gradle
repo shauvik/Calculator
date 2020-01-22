@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -46,4 +48,9 @@ dependencies {
     //androidTestImplementation 'com.moquality:androidtest-library:1.0.0'
     androidTestImplementation project(':androidtest-library')
     androidTestImplementation 'com.google.code.gson:gson:2.8.6'
+    compile "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
