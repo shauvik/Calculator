@@ -1,20 +1,19 @@
 package com.shauvik.calc
 
 import android.util.Log
-import android.util.Pair
 import com.google.gson.GsonBuilder
 import org.junit.Test
 import java.lang.reflect.Modifier
 import java.util.*
 
 internal class Model {
-    var name: String? = null
-    var methods: Map<String, ModelMethod>? = null
+    lateinit var name: String
+    lateinit var methods: Map<String, ModelMethod>
 }
 
 internal class ModelMethod {
-    var args: Array<String>? = null
-    var result: String? = null
+    lateinit var args: Array<String>
+    lateinit var result: String
 }
 
 class JSONGen {
@@ -22,7 +21,10 @@ class JSONGen {
     fun generate() {
         val models = genModels(com.shauvik.calc.model.Calculator::class.java)
 
-        val gson = GsonBuilder().setPrettyPrinting().create()
+        val gson = GsonBuilder().run {
+            setPrettyPrinting()
+            create()
+        }
         Log.d("MODEL OUTPUT", gson.toJson(models))
     }
 
@@ -38,29 +40,30 @@ class JSONGen {
         }
         visited.add(target)
 
-        val model = Model()
+        val model = Model().apply {
+            name = target.simpleName
 
-        model.name = target.simpleName
+            methods = Arrays.stream(target.declaredMethods)
+                    .filter { it.modifiers and Modifier.PUBLIC != 0 && it.modifiers and Modifier.STATIC == 0 }
+                    .map {
+                        val method = ModelMethod().apply {
+                            args = Arrays.stream(it.parameterTypes)
+                                    .map { it.simpleName }
+                                    .toArray { arrayOfNulls<String>(it) }
 
-        model.methods = Arrays.stream(target.declaredMethods)
-                .filter { m -> m.modifiers and Modifier.PUBLIC != 0 && m.modifiers and Modifier.STATIC == 0 }
-                .map { m ->
-                    val method = ModelMethod()
+                            result = it.returnType.simpleName
+                        }
 
-                    method.args = Arrays.stream(m.parameterTypes)
-                            .map { m -> m.simpleName }
-                            .toArray { s -> arrayOfNulls<String>(s) }
-                    method.result = m.returnType.simpleName
+                        genModels(models, it.returnType, visited)
 
-                    genModels(models, m.returnType, visited)
-
-                    Pair<String, ModelMethod>(m.name, method)
-                }
-                .collect<HashMap<String, ModelMethod>>(
-                        ::HashMap,
-                        { m, method -> m[method.first] = method.second },
-                        { obj, m -> obj.putAll(m) }
-                )
+                        it.name to method
+                    }
+                    .collect<HashMap<String, ModelMethod>>(
+                            ::HashMap,
+                            { m, (name, method) -> m[name] = method },
+                            { obj, m -> obj.putAll(m) }
+                    )
+        }
 
         models.add(model)
     }

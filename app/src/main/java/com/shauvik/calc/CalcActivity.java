@@ -45,7 +45,7 @@ public class CalcActivity extends AppCompatActivity {
     
     
     public void handleClick(View view) {
-        TextView tv = (TextView) findViewById(R.id.textView);
+        TextView tv = findViewById(R.id.textView);
         System.out.println(tv.getText());
         int value = 0;
         try {
