@@ -28,6 +28,7 @@ android {
 }
 
 dependencies {
+    androidTestImplementation 'junit:junit:4.13'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
@@ -38,16 +39,11 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
 
-
-    // Assertions
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.ext:truth:1.2.0'
-    androidTestImplementation 'com.google.truth:truth:1.0'
-
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // MoQuality androidtest-library
     // -- uncomment below to install from mavenLocal or online repo
     //androidTestImplementation 'com.moquality:androidtest-library:1.0.0'
     androidTestImplementation project(':androidtest-library')
+    androidTestImplementation 'com.google.code.gson:gson:2.8.6'
 }
