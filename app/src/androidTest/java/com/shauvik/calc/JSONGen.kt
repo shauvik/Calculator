@@ -7,7 +7,6 @@ import java.lang.reflect.Modifier
 import java.util.*
 
 internal class Model {
-    lateinit var name: String
     lateinit var methods: Map<String, ModelMethod>
 }
 
@@ -28,23 +27,22 @@ class JSONGen {
         Log.d("MODEL OUTPUT", gson.toJson(models))
     }
 
-    internal fun genModels(target: Class<*>): Set<Model> {
-        val models = HashSet<Model>()
+    internal fun genModels(target: Class<*>): Map<String, Model> {
+        val models = HashMap<String, Model>()
         genModels(models, target, HashSet())
         return models
     }
 
-    internal fun genModels(models: MutableSet<Model>, target: Class<*>, visited: MutableSet<Class<*>>) {
+    internal fun genModels(models: MutableMap<String, Model>, target: Class<*>, visited: MutableSet<Class<*>>) {
         if (visited.contains(target)) {
             return
         }
         visited.add(target)
 
         val model = Model().apply {
-            name = target.simpleName
-
             methods = Arrays.stream(target.declaredMethods)
-                    .filter { it.modifiers and Modifier.PUBLIC != 0 && it.modifiers and Modifier.STATIC == 0 }
+                    .filter { it.modifiers and Modifier.PUBLIC != 0 }
+                    .filter { it.modifiers and Modifier.STATIC == 0 }
                     .map {
                         val method = ModelMethod().apply {
                             args = Arrays.stream(it.parameterTypes)
@@ -65,6 +63,6 @@ class JSONGen {
                     )
         }
 
-        models.add(model)
+        models[target.simpleName] = model
     }
 }
