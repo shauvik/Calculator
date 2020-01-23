@@ -11,8 +11,8 @@ internal class Model {
 }
 
 internal class ModelMethod {
-    lateinit var args: Array<String>
-    lateinit var result: String
+    lateinit var params: Array<String>
+    lateinit var returns: String
 }
 
 class JSONGen {
@@ -45,11 +45,11 @@ class JSONGen {
                     .filter { it.modifiers and Modifier.STATIC == 0 }
                     .map {
                         val method = ModelMethod().apply {
-                            args = Arrays.stream(it.parameterTypes)
-                                    .map { it.simpleName }
+                            params = Arrays.stream(it.parameterTypes)
+                                    .map { it.name }
                                     .toArray { arrayOfNulls<String>(it) }
 
-                            result = it.returnType.simpleName
+                            returns = it.returnType.simpleName
                         }
 
                         genModels(models, it.returnType, visited)
