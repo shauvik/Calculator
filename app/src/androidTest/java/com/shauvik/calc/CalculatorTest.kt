@@ -7,7 +7,6 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.moquality.android.RoboConfig
 import com.moquality.android.RoboTest
@@ -52,7 +51,8 @@ class CalculatorTest {
               "clickNumber": {
                 "params": [
                   {
-                    "type": "int"
+                    "type": "int",
+                    "valid": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                   }
                 ],
                 "returns": "Calculator"
@@ -64,18 +64,6 @@ class CalculatorTest {
                     "valid": ["+", "-"]
                   }
                 ],
-                "returns": "Calculator"
-              },
-              "checkResult": {
-                "params": [
-                  {
-                    "type": "java.lang.String"
-                  }
-                ],
-                "returns": "Calculator"
-              },
-              "clickEquals": {
-                "params": [],
                 "returns": "Calculator"
               }
             }
