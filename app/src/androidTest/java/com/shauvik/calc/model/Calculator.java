@@ -41,7 +41,7 @@ public class Calculator {
         return this;
     }
 
-    public FakeSecondActivity goToSecondScreen() {
-        return FakeSecondActivity.get();
-    }
+    //public FakeSecondActivity goToSecondScreen() {
+    //    return FakeSecondActivity.get();
+    //}
 }

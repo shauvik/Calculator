@@ -28,5 +28,5 @@ Run all espresso tests
 
 Run just the robo test
 ```
-./gradlew -Pandroid.testInstrumentationRunnerArguments.class=com.shauvik.calc.CalcEspressoTest#roboTest cAT
+./gradlew -Pandroid.testInstrumentationRunnerArguments.class=com.shauvik.calc.RoboTest#roboTest cAT
 ```
