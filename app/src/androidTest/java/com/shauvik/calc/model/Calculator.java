@@ -5,8 +5,10 @@ import com.shauvik.calc.R;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.allOf;
 
 public class Calculator {
     private static Calculator instance;
@@ -22,17 +24,17 @@ public class Calculator {
     }
 
     public Calculator clickNumber(int number) {
-        onView(withText(String.format("%d", number))).perform(click());
+        onView(allOf(withText(String.format("%d", number)), isClickable())).perform(click());
         return this;
     }
 
     public Calculator clickOperator(String op) {
-        onView(withText(op)).perform(click());
+        onView(allOf(withText(op), isClickable())).perform(click());
         return this;
     }
 
     public Calculator clickEquals() {
-        onView(withText("=")).perform(click());
+        onView(allOf(withText("="), isClickable())).perform(click());
         return this;
     }
 
