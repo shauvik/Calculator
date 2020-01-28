@@ -55,7 +55,8 @@ class CalculatorTest {
                     "valid": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                   }
                 ],
-                "returns": "Calculator"
+                "returns": "Calculator",
+                "weight": 3
               },
               "clickOperator": {
                 "params": [
@@ -64,7 +65,8 @@ class CalculatorTest {
                     "valid": ["+", "-"]
                   }
                 ],
-                "returns": "Calculator"
+                "returns": "Calculator",
+                "weight": 1
               }
             }
           }
